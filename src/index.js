@@ -1,3 +1,5 @@
+
+
 const state = {
     temp: 80,
 };
@@ -71,3 +73,47 @@ const registerEventHandlers = () => {
 };
 
 document.addEventListener('DOMContentLoaded', registerEventHandlers);
+
+// Wave 4 API
+const findLatitudeAndLongitude = (query) => {
+  let lat;
+  let lon;
+
+  axios
+    .get('http://localhost:5000/location', {
+      params: {
+        q: query,
+      },
+    })
+    .then((response) => {
+      //console.log(response.data);
+      lat = response.data[0]['lat'];
+      lon = response.data[0]['lon'];
+      console.log(lat, lon);
+      return findWeather(lat, lon);
+    })
+    .catch((error) => {
+      console.log('error!', error);
+    });
+  };
+  
+const findWeather = (lat, lon)=>{
+  axios
+    .get('http://localhost:5000/weather', {
+      params: {
+        lat: lat,
+        lon: lon,
+      },
+    })
+    .then((response) => {
+      let tempKelvin = response.data['main']['temp'];
+      let tempFahrenheit = (tempKelvin - 273.15) * (9 / 5) + 32;
+      console.log(tempFahrenheit);
+      return tempFahrenheit;
+    })
+    .catch((error) => {
+      console.log('error!', error);
+    });
+};
+
+findLatitudeAndLongitude('Seattle');
