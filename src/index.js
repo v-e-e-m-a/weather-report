@@ -2,25 +2,42 @@ const state = {
     temp: 80,
 };
 
-const changeTempStyling = () => {
-    let landscape = document.querySelector('#landscape');
-    let temperature = document.querySelector('#temperature');
+const tempRules = [
+  {
+    min: 80,
+    color: 'red',
+    landscape: '🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂'
+  },
+  {
+    min: 70,
+    color: 'orange',
+    landscape: '🌸🌿🌼__🌷🌻🌿_☘️🌱_🌻🌷'
+  },
+  {
+    min: 60,
+    color: 'yellow',
+    landscape: '🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃'
+  },
+  {
+    min: 50,
+    color: 'green',
+    landscape: '🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲'
+  },
+  {
+    min: -Infinity,
+    color: 'aqua',
+    landscape: '❄️❄️☃️⛄️❄️☁️🌨❄️❄️'
+  }
+];
 
-    if (state.temp >= 80) {
-        temperature.style.color = 'red';
-        landscape.textContent = '🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂';
-    } else if (state.temp >= 70) {
-        temperature.style.color = 'orange';
-        landscape.textContent = '🌸🌿🌼__🌷🌻🌿_☘️🌱_🌻🌷';
-    } else if (state.temp >= 60) {
-        temperature.style.color = 'yellow';
-        landscape.textContent = '🌾🌾_🍃_🪨__🛤_🌾🌾🌾_🍃';
-    } else if (state.temp >= 50) {
-        temperature.style.color = 'green';
-        landscape.textContent = '🌲🌲⛄️🌲⛄️🍂🌲🍁🌲🌲⛄️🍂🌲';
-    } else {
-        temperature.style.color = 'aqua';
-    };
+const changeTempStyling = () => {
+  const landscape = document.querySelector('#landscape');
+  const temperature = document.querySelector('#temperature');
+
+  const rule = tempRules.find(rule => state.temp >= rule.min);
+
+  temperature.style.color = rule.color;
+  landscape.textContent = rule.landscape;
 };
 
 const increaseTemp = () => {
