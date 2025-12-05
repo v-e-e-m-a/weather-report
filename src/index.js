@@ -2,6 +2,7 @@
 
 const state = {
     temp: 80,
+    city: 'Pompano Beach'
 };
 
 const tempRules = [
@@ -42,24 +43,50 @@ const changeTempStyling = () => {
   landscape.textContent = rule.landscape;
 };
 
-const increaseTemp = () => {
-    state.temp += 1;
+const updateTemp = () => {
     const tempContainer = document.querySelector('#temperature');
     tempContainer.textContent = `${state.temp}°`;
+}
+
+const increaseTemp = () => {
+    state.temp += 1;
+    updateTemp();
     changeTempStyling();
 };
 
 const decreaseTemp = () => {
     state.temp -= 1;
-    const tempContainer = document.querySelector('#temperature');
-    tempContainer.textContent = `${state.temp}°`;
+    updateTemp();
     changeTempStyling();
 };
 
 const updateCityName = () => {
-    let city = document.querySelector('#selectedCity').value;
-    document.querySelector('#city').textContent = `${city}`;
+    state.city = document.querySelector('#selectedCity').value;
+    if (state.city === '') { // Resets city to default if you try to update the city while the input box is blank
+        resetCity();
+    } else {
+    document.querySelector('#city').textContent = `${state.city}`;
+    changeTempWithCity(state.city);
+    };
 };
+
+const changeTempWithCity = (city) => {
+  findLatitudeAndLongitude(city)
+    .then((newTemp) => {
+      console.log(`New temp: ${newTemp}`);
+      state.temp = newTemp;
+      updateTemp();
+    })
+    .catch((error) => {
+      console.log("Error updating temp:", error);
+    });
+};
+
+const resetCity = () => {
+    state.city = 'Pompano Beach';
+    document.querySelector('#city').textContent = `${state.city}`;
+    changeTempWithCity(state.city);
+}
 
 const registerEventHandlers = () => {
   const increaseTempButton = document.querySelector('#increaseTemperature');
@@ -68,18 +95,19 @@ const registerEventHandlers = () => {
   const decreaseTempButton = document.querySelector('#decreaseTemperature');
   decreaseTempButton.addEventListener('click', decreaseTemp);
 
-  const setCityButton = document.querySelector('#selectedCity');
-  setCityButton.addEventListener('input', updateCityName);
+  const setCityButton = document.querySelector('#updateCity');
+  setCityButton.addEventListener('click', updateCityName);
+
+  const resetCityButton = document.querySelector('#resetCity');
+  resetCityButton.addEventListener('click', resetCity);
 };
 
 document.addEventListener('DOMContentLoaded', registerEventHandlers);
 
 // Wave 4 API
-const findLatitudeAndLongitude = (query) => {
-  let lat;
-  let lon;
 
-  axios
+const findLatitudeAndLongitude = (query) => {
+    return axios
     .get('http://localhost:5000/location', {
       params: {
         q: query,
@@ -87,10 +115,11 @@ const findLatitudeAndLongitude = (query) => {
     })
     .then((response) => {
       //console.log(response.data);
-      lat = response.data[0]['lat'];
-      lon = response.data[0]['lon'];
+      const lat = response.data[0].lat;
+      const lon = response.data[0].lon;
       console.log(lat, lon);
-      return findWeather(lat, lon);
+      const temp = findWeather(lat, lon);
+      return temp;
     })
     .catch((error) => {
       console.log('error!', error);
@@ -98,7 +127,7 @@ const findLatitudeAndLongitude = (query) => {
   };
   
 const findWeather = (lat, lon)=>{
-  axios
+  return axios
     .get('http://localhost:5000/weather', {
       params: {
         lat: lat,
@@ -106,8 +135,8 @@ const findWeather = (lat, lon)=>{
       },
     })
     .then((response) => {
-      let tempKelvin = response.data['main']['temp'];
-      let tempFahrenheit = (tempKelvin - 273.15) * (9 / 5) + 32;
+      let tempKelvin = response.data.main.temp;
+      let tempFahrenheit = Math.round((tempKelvin - 273.15) * (9 / 5) + 32);
       console.log(tempFahrenheit);
       return tempFahrenheit;
     })
@@ -115,5 +144,3 @@ const findWeather = (lat, lon)=>{
       console.log('error!', error);
     });
 };
-
-findLatitudeAndLongitude('Seattle');

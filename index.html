@@ -16,7 +16,8 @@
     <form id="weatherCustomizer">
         <label for="cityselector">Set City:</label>
         <input type="text" id="selectedCity">
-        <input type="button" value="Reset">
+        <button type="button" id="updateCity">Update City</button>
+        <button type="reset" id="resetCity">Reset</button>
         
         <label for="skyselector">Set Sky:</label>
         <select id="skies">
@@ -31,8 +32,8 @@
         <div class="temperatureContainer">
             <div id="temperature">80°</div>
             <form id="temperatureControls">
-                <input type="button" id="increaseTemperature" value="⬆️">
-                <input type="button" id="decreaseTemperature" value="⬇️">
+                <button type="button" id="increaseTemperature">⬆️</button>
+                <button type="button" id="decreaseTemperature">⬇️</button>
             </form>
         </div>
         <div id="landscape">🌵__🐍_🦂_🌵🌵__🐍_🏜_🦂</div>
