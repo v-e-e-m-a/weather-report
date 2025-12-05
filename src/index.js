@@ -36,7 +36,7 @@ const skyOptions = {
   'cloudy': '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️ ☁️ ☁️☁️',
   'rainy': '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧',
   'snowy': '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨'
-}
+};
 
 const changeTempStyling = () => {
   const landscape = document.querySelector('#landscape');
@@ -97,9 +97,6 @@ const changeSky = (event) => {
   let skyDisplay = document.querySelector('#skyDisplay');
   skyDisplay.textContent = skyOptions[event.target.value];
 };
-
-
-
 
 // Wave 4 API
 
