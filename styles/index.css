@@ -1,0 +1,61 @@
+body {
+    text-align: center;
+    background-image: url("../assets/images/pexels-brett-sayles-912364.jpg");
+    background-size: auto;         /* Scale to cover entire area */
+    background-position: center;
+    font-size: 1rem;
+    font-family: Verdana;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form, input, button, select{
+    font-size: 1.2rem;
+}
+
+#weather-report {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    max-width: auto;
+    margin-top: 50px;
+    /*margin-left: 350px;
+    margin-bottom: 50px;
+    margin-right: 350px;*/
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 2rem;
+    
+}
+
+#temperatureControls {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+}
+
+#temperature {
+    display: flex;
+    flex-direction: row;
+    font-size: 3rem;
+}
+
+#temperatureContainer {
+    display: flex;
+    flex-direction: row;
+}
+#temperatureContContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+button, select, input {
+    background-color: white;
+    border-radius: .3rem;
+    border-width: 0.1rem;
+}
+

@@ -31,12 +31,27 @@ const tempRules = [
   }
 ];
 
-const skyOptions = {
-  'sunny': '☁️ ☁️ ☁️ ☀️ ☁️ ☁️ ☁️',
-  'cloudy': '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️ ☁️ ☁️☁️',
-  'rainy': '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧',
-  'snowy': '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨'
-};
+const skyOptions = [{
+  sky: 'sunny',
+  display: '☁️ ☁️ ☁️ ☀️ ☁️ ☁️ ☁️',
+  background: 'lightskyblue',
+},
+{
+  sky:'cloudy',
+  display: '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️ ☁️ ☁️☁️',
+  background: 'gray',
+},
+{
+  sky:'rainy',
+  display: '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧',
+  background: 'lightsteelblue',
+},
+{
+  sky: 'snowy',
+  display: '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨',
+  background:'lightcyan',
+}
+];
 
 const changeTempStyling = () => {
   const landscape = document.querySelector('#landscape');
