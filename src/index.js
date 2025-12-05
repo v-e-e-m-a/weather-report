@@ -108,9 +108,15 @@ const resetCity = () => {
 };
 
 const changeSky = (event) => {
-  //const skySelector = document.querySelector('#skySelector');
   let skyDisplay = document.querySelector('#skyDisplay');
-  skyDisplay.textContent = skyOptions[event.target.value];
+  let weatherContainer = document.querySelector('#weather-report');
+  let increaseTemperatureButton = document.querySelector('#increaseTemperature');
+  let decreaseTemperatureButton = document.querySelector('#decreaseTemperature');
+  let rule = skyOptions.find(rule => event.target.value === rule.sky);
+  skyDisplay.textContent = rule.display;
+  weatherContainer.style.background = rule.background;
+  increaseTemperatureButton.style.background = rule.background;
+  decreaseTemperatureButton.style.background = rule.background;
 };
 
 // Wave 4 API
@@ -145,7 +151,6 @@ const findWeather = (lat, lon)=>{
     .then((response) => {
       let tempKelvin = response.data.main.temp;
       let tempFahrenheit = Math.round((tempKelvin - 273.15) * (9 / 5) + 32);
-      console.log(tempFahrenheit);
       return tempFahrenheit;
     })
     .catch((error) => {
