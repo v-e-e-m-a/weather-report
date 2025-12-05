@@ -1,8 +1,6 @@
-
-
 const state = {
-  temp: 80,
-  city: 'Pompano Beach'
+  city: 'Pompano Beach',
+  temp: null,
 };
 
 const tempRules = [
@@ -76,12 +74,12 @@ const updateCityName = () => {
   };
 };
 
-const changeTempWithCity = (city) => {
-  findLatitudeAndLongitude(city)
+const changeTempWithCity = () => {
+  findLatitudeAndLongitude(state.city)
     .then((newTemp) => {
-      console.log(`New temp: ${newTemp}`);
       state.temp = newTemp;
       updateTemp();
+      return newTemp;
     })
     .catch((error) => {
       console.log('Error updating temp:', error);
@@ -101,24 +99,7 @@ const changeSky = (event) => {
 };
 
 
-const registerEventHandlers = () => {
-  const increaseTempButton = document.querySelector('#increaseTemperature');
-  increaseTempButton.addEventListener('click', increaseTemp);
 
-  const decreaseTempButton = document.querySelector('#decreaseTemperature');
-  decreaseTempButton.addEventListener('click', decreaseTemp);
-
-  const setCityButton = document.querySelector('#updateCity');
-  setCityButton.addEventListener('click', updateCityName);
-
-  const resetCityButton = document.querySelector('#resetCity');
-  resetCityButton.addEventListener('click', resetCity);
-
-  const skySelector = document.querySelector('#skySelector');
-  skySelector.addEventListener('change', changeSky);
-};
-
-document.addEventListener('DOMContentLoaded', registerEventHandlers);
 
 // Wave 4 API
 
@@ -133,7 +114,6 @@ const findLatitudeAndLongitude = (query) => {
       //console.log(response.data);
       const lat = response.data[0].lat;
       const lon = response.data[0].lon;
-      console.log(lat, lon);
       const temp = findWeather(lat, lon);
       return temp;
     })
@@ -160,3 +140,22 @@ const findWeather = (lat, lon)=>{
       console.log('error!', error);
     });
 };
+
+const registerEventHandlers = () => {
+  const increaseTempButton = document.querySelector('#increaseTemperature');
+  increaseTempButton.addEventListener('click', increaseTemp);
+
+  const decreaseTempButton = document.querySelector('#decreaseTemperature');
+  decreaseTempButton.addEventListener('click', decreaseTemp);
+
+  const setCityButton = document.querySelector('#updateCity');
+  setCityButton.addEventListener('click', updateCityName);
+
+  const resetCityButton = document.querySelector('#resetCity');
+  resetCityButton.addEventListener('click', resetCity);
+
+  const skySelector = document.querySelector('#skySelector');
+  skySelector.addEventListener('change', changeSky);
+};
+
+document.addEventListener('DOMContentLoaded', registerEventHandlers, changeTempWithCity());
