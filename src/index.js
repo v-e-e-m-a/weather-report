@@ -33,6 +33,13 @@ const tempRules = [
   }
 ];
 
+const skyOptions = {
+  'sunny': '☁️ ☁️ ☁️ ☀️ ☁️ ☁️ ☁️',
+  'cloudy': '☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️ ☁️ ☁️☁️',
+  'rainy': '🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧',
+  'snowy': '🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨'
+}
+
 const changeTempStyling = () => {
   const landscape = document.querySelector('#landscape');
   const temperature = document.querySelector('#temperature');
@@ -83,10 +90,17 @@ const changeTempWithCity = (city) => {
 };
 
 const resetCity = () => {
-    state.city = 'Pompano Beach';
-    document.querySelector('#city').textContent = `${state.city}`;
-    changeTempWithCity(state.city);
+  state.city = 'Pompano Beach';
+  document.querySelector('#city').textContent = `${state.city}`;
+  changeTempWithCity(state.city);
+};
+
+const changeSky = (event) => {
+  const skySelector = document.querySelector('#skySelector');
+  let skyDisplay = document.querySelector('#skyDisplay');
+  skyDisplay.textContent = skyOptions[event.target.value];
 }
+
 
 const registerEventHandlers = () => {
   const increaseTempButton = document.querySelector('#increaseTemperature');
@@ -100,6 +114,9 @@ const registerEventHandlers = () => {
 
   const resetCityButton = document.querySelector('#resetCity');
   resetCityButton.addEventListener('click', resetCity);
+
+  const skySelector = document.querySelector('#skySelector');
+  skySelector.addEventListener('change', changeSky);
 };
 
 document.addEventListener('DOMContentLoaded', registerEventHandlers);
@@ -107,7 +124,7 @@ document.addEventListener('DOMContentLoaded', registerEventHandlers);
 // Wave 4 API
 
 const findLatitudeAndLongitude = (query) => {
-    return axios
+  return axios
     .get('http://localhost:5000/location', {
       params: {
         q: query,
@@ -124,8 +141,8 @@ const findLatitudeAndLongitude = (query) => {
     .catch((error) => {
       console.log('error!', error);
     });
-  };
-  
+};
+
 const findWeather = (lat, lon)=>{
   return axios
     .get('http://localhost:5000/weather', {
