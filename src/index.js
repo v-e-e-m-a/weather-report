@@ -1,8 +1,8 @@
 
 
 const state = {
-    temp: 80,
-    city: 'Pompano Beach'
+  temp: 80,
+  city: 'Pompano Beach'
 };
 
 const tempRules = [
@@ -51,30 +51,29 @@ const changeTempStyling = () => {
 };
 
 const updateTemp = () => {
-    const tempContainer = document.querySelector('#temperature');
-    tempContainer.textContent = `${state.temp}°`;
-}
+  const tempContainer = document.querySelector('#temperature');
+  tempContainer.textContent = `${state.temp}°`;
+  changeTempStyling();
+};
 
 const increaseTemp = () => {
-    state.temp += 1;
-    updateTemp();
-    changeTempStyling();
+  state.temp += 1;
+  updateTemp();
 };
 
 const decreaseTemp = () => {
-    state.temp -= 1;
-    updateTemp();
-    changeTempStyling();
+  state.temp -= 1;
+  updateTemp();
 };
 
 const updateCityName = () => {
-    state.city = document.querySelector('#selectedCity').value;
-    if (state.city === '') { // Resets city to default if you try to update the city while the input box is blank
-        resetCity();
-    } else {
+  state.city = document.querySelector('#selectedCity').value;
+  if (state.city === '') { // Resets city to default if you try to update the city while the input box is blank
+    resetCity();
+  } else {
     document.querySelector('#city').textContent = `${state.city}`;
     changeTempWithCity(state.city);
-    };
+  };
 };
 
 const changeTempWithCity = (city) => {
@@ -85,7 +84,7 @@ const changeTempWithCity = (city) => {
       updateTemp();
     })
     .catch((error) => {
-      console.log("Error updating temp:", error);
+      console.log('Error updating temp:', error);
     });
 };
 
@@ -96,10 +95,10 @@ const resetCity = () => {
 };
 
 const changeSky = (event) => {
-  const skySelector = document.querySelector('#skySelector');
+  //const skySelector = document.querySelector('#skySelector');
   let skyDisplay = document.querySelector('#skyDisplay');
   skyDisplay.textContent = skyOptions[event.target.value];
-}
+};
 
 
 const registerEventHandlers = () => {
