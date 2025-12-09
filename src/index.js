@@ -123,7 +123,7 @@ const changeSky = (event) => {
 
 const findLatitudeAndLongitude = (query) => {
   return axios
-    .get('http://localhost:5000/location', {
+    .get('https://ada-weather-report-proxy-server.onrender.com/location', {
       params: {
         q: query,
       },
@@ -142,7 +142,7 @@ const findLatitudeAndLongitude = (query) => {
 
 const findWeather = (lat, lon)=>{
   return axios
-    .get('http://localhost:5000/weather', {
+    .get('https://ada-weather-report-proxy-server.onrender.com/weather', {
       params: {
         lat: lat,
         lon: lon,
